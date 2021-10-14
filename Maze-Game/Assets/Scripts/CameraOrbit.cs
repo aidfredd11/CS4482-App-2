@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraOrbit : MonoBehaviour
 {
-    // how far camera will rotate
+    // mouse sensitivity
     public float lookSensitivity;
 
     // min and max x look (how far up and down can we look)
@@ -17,6 +15,8 @@ public class CameraOrbit : MonoBehaviour
     public bool invertXRotation;
 
     private float currentXRot; // make sure not to go out of range
+
+    RaycastHit camHit;
 
     private void Start()
     {
@@ -34,7 +34,7 @@ public class CameraOrbit : MonoBehaviour
         transform.eulerAngles += Vector3.up * x * lookSensitivity;
 
         // vertical camera tilt
-        if(invertXRotation)
+        if (invertXRotation)
             currentXRot += y * lookSensitivity;
         else
             currentXRot -= y * lookSensitivity;
@@ -44,5 +44,6 @@ public class CameraOrbit : MonoBehaviour
         Vector3 clampedAngle = cameraAnchor.eulerAngles;
         clampedAngle.x = currentXRot;
         cameraAnchor.eulerAngles = clampedAngle;
+
     }
 }
