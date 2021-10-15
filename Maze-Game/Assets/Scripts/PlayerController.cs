@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider capsuleCollider;
     private Rigidbody playerRb;
 
-    private bool isMoving;
-
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
@@ -24,13 +22,13 @@ public class PlayerController : MonoBehaviour
         Move();
     }
 
-    void Move()
+    private void Move()
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
         // idle animation when not moving
-        if ((x == 0 && z == 0) || (x != 0 && z == 0))
+        if (x == 0 && z == 0) 
         {
             animator.SetBool("IsIdle", true);
             animator.SetBool("IsWalking", false);
