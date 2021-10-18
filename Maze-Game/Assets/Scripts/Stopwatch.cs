@@ -25,7 +25,7 @@ public class Stopwatch : MonoBehaviour
             currentTime = currentTime + Time.deltaTime;
         }
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
-        currentTimeText.text = "Stopwatch: " + time.ToString(@"mm\:ss\:fff");
+        currentTimeText.text = "Time:\n" + time.ToString(@"mm\:ss\:fff");
     }
     public void StartStopwatch()
     {
