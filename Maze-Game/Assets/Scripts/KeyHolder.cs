@@ -1,30 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class KeyHolder : MonoBehaviour
 {
-    private List<Key.KeyType> keyList;
+    public event EventHandler OnKeyChanged;
 
-    private void Awake()
+    private Key.KeyType currentKey; // key that the player has
+
+    public Key.KeyType GetKey()
     {
-        keyList = new List<Key.KeyType>();
+        return currentKey;
     }
 
     public void AddKey(Key.KeyType keyType)
     {
-        Debug.Log("Key added!");
-        keyList.Add(keyType);
+        currentKey = keyType;
+        OnKeyChanged?.Invoke(this, EventArgs.Empty); // update the UI
     }
 
-    public void RemoveKey(Key.KeyType keyType)
+    public void RemoveKey()//Key.KeyType keyType)
     {
-        keyList.Remove(keyType);
+        currentKey = Key.KeyType.None;
+        OnKeyChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public bool ContainsKey(Key.KeyType keyType)
     {
-        return keyList.Contains(keyType);
+        if (currentKey == keyType)
+            return true;
+        else
+            return false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,12 +42,12 @@ public class KeyHolder : MonoBehaviour
         }
 
         KeyDoor keyDoor = other.GetComponent<KeyDoor>();
-        if(keyDoor != null)
+        if (keyDoor != null)
         {
             if (ContainsKey(keyDoor.GetKeyType()))
             {
                 //currently holding the key to open the door
-                RemoveKey(keyDoor.GetKeyType());
+                RemoveKey();//keyDoor.GetKeyType());
                 keyDoor.OpenDoor();
             }
         }

@@ -28,13 +28,13 @@ public class PlayerController : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         // idle animation when not moving
-        if (x == 0 && z == 0) 
+        if (x == 0 && z == 0)
         {
             animator.SetBool("IsIdle", true);
             animator.SetBool("IsWalking", false);
 
             playerRb.velocity = Vector3.zero;
-        } 
+        }
         else
         {
             animator.SetBool("IsIdle", false);
