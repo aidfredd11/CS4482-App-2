@@ -4,16 +4,12 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
 
-    // public Rigidbody playerRb;
-
     private Animator animator;
-    private CapsuleCollider capsuleCollider;
     private Rigidbody playerRb;
 
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
-        capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
         playerRb = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -48,6 +44,4 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
-
 }

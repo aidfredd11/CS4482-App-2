@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -21,7 +18,8 @@ public class PauseMenu : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             isMenuActive = true;
             Pause();
-        } else if (Input.GetKeyDown(KeyCode.Escape) && isMenuActive)
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && isMenuActive)
         {
             isMenuActive = false;
             Resume();
@@ -31,23 +29,29 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
+        ToggleTime(0);
     }
     public void Restart(int sceneID)
     {
-        Debug.Log("Restart");
-        Time.timeScale = 1f;
+        ToggleTime(1);
+        Stopwatch.isActive = false;
         SceneManager.LoadScene(sceneID);
     }
     public void Resume()
     {
         pauseMenu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1f; 
+        ToggleTime(1);
     }
     public void Exit(int sceneID)
     {
-        Time.timeScale = 1f;
+        ToggleTime(1);
         SceneManager.LoadScene(sceneID);
+    }
+
+    // change state of the time scale
+    private void ToggleTime(int timeScale)
+    {
+        Time.timeScale = timeScale;
     }
 }
