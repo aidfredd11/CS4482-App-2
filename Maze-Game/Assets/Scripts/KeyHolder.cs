@@ -7,6 +7,11 @@ public class KeyHolder : MonoBehaviour
 
     private Key.KeyType currentKey; // key that the player has
 
+    private void Start()
+    {
+        currentKey = Key.KeyType.None;
+    }
+
     public Key.KeyType GetKey()
     {
         return currentKey;
@@ -18,7 +23,7 @@ public class KeyHolder : MonoBehaviour
         OnKeyChanged?.Invoke(this, EventArgs.Empty); // update the UI
     }
 
-    public void RemoveKey()//Key.KeyType keyType)
+    public void RemoveKey()
     {
         currentKey = Key.KeyType.None;
         OnKeyChanged?.Invoke(this, EventArgs.Empty);

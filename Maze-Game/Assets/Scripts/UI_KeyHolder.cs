@@ -27,7 +27,6 @@ public class UI_KeyHolder : MonoBehaviour
     private void UpdateVisual()
     {
         Key.KeyType keyType = keyHolder.GetKey();
-
         container.gameObject.SetActive(true);
         Image keyImage = container.Find("image").GetComponent<Image>();
 

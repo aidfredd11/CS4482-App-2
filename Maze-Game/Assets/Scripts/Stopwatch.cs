@@ -7,13 +7,16 @@ public class Stopwatch : MonoBehaviour
     public static bool isActive = false;
     private float currentTime;
     public Text currentTimeText;
+
     private string lineTag;
+    public GameEndController gameEnd;
 
     // Start is called before the first frame update
     void Start()
     {
         currentTime = 0;
-        lineTag = gameObject.tag;
+        lineTag = transform.tag;
+        Debug.Log(lineTag);
     }
 
     // Update is called once per frame
@@ -36,5 +39,12 @@ public class Stopwatch : MonoBehaviour
     {
         ToggleStopwatch();
         gameObject.GetComponent<Collider>().enabled = false; // disable collider if they cross the line again
+
+        if (lineTag.Equals("Finish"))
+        {
+            gameEnd.IsGameEnded = true;
+            Debug.Log("Crossed finish line, is game ended? " + gameEnd.IsGameEnded);
+            gameEnd.GameEnd();
+        }
     }
 }
