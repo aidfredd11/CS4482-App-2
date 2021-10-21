@@ -16,8 +16,6 @@ public class CameraOrbit : MonoBehaviour
 
     private float currentXRot; // make sure not to go out of range
 
-    RaycastHit camHit;
-
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;

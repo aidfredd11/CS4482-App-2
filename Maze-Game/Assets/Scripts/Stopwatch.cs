@@ -40,11 +40,11 @@ public class Stopwatch : MonoBehaviour
         ToggleStopwatch();
         gameObject.GetComponent<Collider>().enabled = false; // disable collider if they cross the line again
 
+        // Crossed the finish line
         if (lineTag.Equals("Finish"))
         {
             gameEnd.IsGameEnded = true;
-            Debug.Log("Crossed finish line, is game ended? " + gameEnd.IsGameEnded);
-            gameEnd.GameEnd();
+            gameEnd.GameEnd(currentTime);
         }
     }
 }

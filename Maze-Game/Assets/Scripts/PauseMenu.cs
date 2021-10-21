@@ -62,4 +62,9 @@ public class PauseMenu : MonoBehaviour
         Stopwatch.isActive = activeStatus;
         SceneManager.LoadScene(sceneID);
     }
+    public bool IsMenuActive
+    {
+        get { return isMenuActive; }
+        set { isMenuActive = value; }
+    }
 }

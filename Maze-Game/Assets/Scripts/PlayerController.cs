@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Move()
-    {
+    { 
+
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
