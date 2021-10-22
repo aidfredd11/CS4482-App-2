@@ -7427,6 +7427,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 1131507334}
+  menuController: {fileID: 1636303632}
+  inputField: {fileID: 920183845}
 --- !u!1001 &1227881876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9087,10 +9089,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1636303632}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 3
+      - m_Target: {fileID: 1208917304}
+        m_TargetAssemblyTypeName: GameEndController, Assembly-CSharp
+        m_MethodName: OnSubmitButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

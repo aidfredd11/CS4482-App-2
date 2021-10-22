@@ -16,7 +16,6 @@ public class Stopwatch : MonoBehaviour
     {
         currentTime = 0;
         lineTag = transform.tag;
-        Debug.Log(lineTag);
     }
 
     // Update is called once per frame
