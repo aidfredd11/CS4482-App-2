@@ -11,43 +11,44 @@ public class Leaderboard : MonoBehaviour
     {
         // get time and name
         float recordedScore = PlayerPrefs.GetFloat("timeScore");
-
-        string timeString = recordedScore.ToString();
         string name = PlayerPrefs.GetString("name");
-
+      
         // Clear the player prefs 
         PlayerPrefs.DeleteAll();
 
+        // Load the previous data
+        LeaderBoardData loadedData = DataSaver.loadData<LeaderBoardData>("leaderboard");
+        loadedData.names.Add(name);
+        loadedData.times.Add(recordedScore);
+        DataSaver.saveData(loadedData, "leaderboard");
 
         // Instantiate data object
-        LeaderBoardData saveData = new LeaderBoardData();
+        //LeaderBoardData saveData = new LeaderBoardData();
 
         // Add current combo to list 
-        saveData.names.Add(name);
-        saveData.times.Add(recordedScore);
+       // saveData.names.Add(name);
+       // saveData.times.Add(recordedScore);
 
         // Save it
-        DataSaver.saveData(saveData, "leaderboard");
+      //  DataSaver.saveData(saveData, "leaderboard");
 
         // Get data now with new score
         LeaderBoardData leaderBoardData = DataSaver.loadData<LeaderBoardData>("leaderboard");
 
-        // Use dictionary to sort 
-        Dictionary<string, float> timeNamePairs = new Dictionary<string, float>();
-
+        if (leaderBoardData == null)
+        {
+            Debug.Log("Empty leaderboard");
+        }
+            
         for (int i = 0; i < leaderBoardData.names.Count; i++)
         {
-            string currentName = leaderBoardData.names[i];
-            float currentTime = leaderBoardData.times[i];
-
-            timeNamePairs.Add(currentName, currentTime);
+            Debug.Log(leaderBoardData.names[i]);
         }
-
-        foreach(KeyValuePair<string, float> item in timeNamePairs.OrderBy(key => key.Value))
+        for (int i = 0; i < leaderBoardData.times.Count; i++)
         {
-
+            Debug.Log(leaderBoardData.times[i]);
         }
-  
+
     }
 
 }
