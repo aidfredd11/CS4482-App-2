@@ -20,8 +20,6 @@ public class Leaderboard : MonoBehaviour
             float recordedScore = PlayerPrefs.GetFloat("timeScore");
             string name = PlayerPrefs.GetString("name");
 
-            Debug.Log("Time: " + recordedScore + " Name: " + name);
-
             // Clear the player prefs 
             PlayerPrefs.DeleteAll();
 
@@ -44,21 +42,32 @@ public class Leaderboard : MonoBehaviour
         }
         else
         {
-            GenerateTextObjects(loadedData);
+            // make the 2 lists into a dictionary
+            List<float> times = loadedData.times;
+            List<string> names = loadedData.names;
+            
+            var orderedZip = times.Zip(names, (x, y) => new { x, y })
+                      .OrderBy(pair => pair.x)
+                      .ToList();
+
+            times = orderedZip.Select(pair => pair.x).ToList();
+            names = orderedZip.Select(pair => pair.y).ToList();
+
+            GenerateTextObjects(times, names);
         }
 
     }
 
-    private void GenerateTextObjects(LeaderBoardData data)
+    private void GenerateTextObjects(List<float> times, List<string> names)
     {
 
-        for (int i = 0; i < data.names.Count; i++)
+        for (int i = 0; i < names.Count; i++)
         {
             // get the current item
-            string thisName = data.names[i];
-            string thisTime = data.times[i].ToString();
+            string thisName = names[i];
+            string thisTime = times[i].ToString();
             // combine to one string
-            string entryString = thisName + "_____" + thisTime;
+            string entryString = (i + 1).ToString() + ". " + thisName + "_____" + thisTime;
 
             // make a gameobject for the text
             GameObject newText = new GameObject("Entry", typeof(RectTransform));
