@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class DataSaver
 {
-
     //Save Data
     public static void saveData<T>(T dataToSave, string dataFileName)
     {
@@ -44,17 +43,26 @@ public class DataSaver
         tempPath = Path.Combine(tempPath, dataFileName + ".txt");
 
         //Exit if Directory or File does not exist
-        if (!Directory.Exists(Path.GetDirectoryName(tempPath)))
+        // !Directory.Exists(Path.GetDirectoryName(tempPath))
+        if (!File.Exists(tempPath))
         {
             Debug.LogWarning("Directory does not exist");
+            Directory.CreateDirectory(Path.GetDirectoryName(tempPath)); // Make the directory 
+
+            byte[] emptyBytes = Array.Empty<byte>();
+            File.WriteAllBytes(tempPath, emptyBytes);
+
+            Debug.Log("Directory made");
+            Debug.Log("File made at: " + tempPath.Replace("/", "\\"));
             return default(T);
         }
 
-        if (!File.Exists(tempPath))
+       /* if (!File.Exists(tempPath))
         {
             Debug.Log("File does not exist");
+            Debug.Log("File does not exist at: " + tempPath.Replace("/", "\\"));
             return default(T);
-        }
+        } */
 
         //Load saved Json
         byte[] jsonByte = null;

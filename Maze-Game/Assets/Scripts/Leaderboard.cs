@@ -10,46 +10,49 @@ public class Leaderboard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LeaderBoardData loadedData = DataSaver.loadData<LeaderBoardData>("leaderboard");
+
         // only add a new score if the player pref is not empty
-        if(PlayerPrefs.HasKey("timeScore") && PlayerPrefs.HasKey("name"))
+        if (PlayerPrefs.HasKey("timeScore") && PlayerPrefs.HasKey("name"))
         {
 
             // get time and name
             float recordedScore = PlayerPrefs.GetFloat("timeScore");
             string name = PlayerPrefs.GetString("name");
 
+            Debug.Log("Time: " + recordedScore + " Name: " + name);
+
             // Clear the player prefs 
             PlayerPrefs.DeleteAll();
 
-            // Load the previous data
-            LeaderBoardData loadedData = DataSaver.loadData<LeaderBoardData>("leaderboard");
-
             // add the score and name to the data
+            if (loadedData == null)
+            {
+                loadedData = new LeaderBoardData();
+            }
             loadedData.names.Add(name);
             loadedData.times.Add(recordedScore);
-
+           
             // Save it
             DataSaver.saveData(loadedData, "leaderboard");
 
+        }
+
+        if (loadedData == null)
+        {
+            Debug.Log("Empty leaderboard");
+        }
+        else
+        {
             GenerateTextObjects(loadedData);
         }
-        else // leaderboard is opened from the main menu
-        {
-            LeaderBoardData loadedData = DataSaver.loadData<LeaderBoardData>("leaderboard");
-            if (loadedData == null)
-            {
-                Debug.Log("Empty leaderboard");
-            }
-
-            GenerateTextObjects(loadedData);
-        }    
 
     }
 
     private void GenerateTextObjects(LeaderBoardData data)
     {
-        
-        for (int i =0; i < data.names.Count; i++)
+
+        for (int i = 0; i < data.names.Count; i++)
         {
             // get the current item
             string thisName = data.names[i];
@@ -64,7 +67,7 @@ public class Leaderboard : MonoBehaviour
             // Change its size
             RectTransform rectTransform = newText.GetComponent<RectTransform>();
             float temp = rectTransform.localScale.x;
-            rectTransform.localScale = new Vector3(1/temp, 1, 1);
+            rectTransform.localScale = new Vector3(1 / temp, 1, 1);
             rectTransform.sizeDelta = new Vector2(344, 66);
 
             // add a text componet to new game object
@@ -74,14 +77,14 @@ public class Leaderboard : MonoBehaviour
             newTextComp.text = entryString;
             newTextComp.alignment = TextAnchor.MiddleCenter;
             newTextComp.color = Color.black;
-            
+
             Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
             newTextComp.font = ArialFont;
             newTextComp.fontSize = 22;
 
             // make it a child of content gameobject
             newText.transform.SetParent(transform);
-                     
+
         }
     }
 
