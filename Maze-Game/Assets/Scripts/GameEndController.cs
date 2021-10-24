@@ -16,10 +16,6 @@ public class GameEndController : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    private void OnDisable()
-    {
-        
-    }
 
     // Finish line has been crossed
     public void GameEnd(float recordedTime)

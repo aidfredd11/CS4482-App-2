@@ -57,13 +57,6 @@ public class DataSaver
             return default(T);
         }
 
-       /* if (!File.Exists(tempPath))
-        {
-            Debug.Log("File does not exist");
-            Debug.Log("File does not exist at: " + tempPath.Replace("/", "\\"));
-            return default(T);
-        } */
-
         //Load saved Json
         byte[] jsonByte = null;
         try
@@ -85,38 +78,4 @@ public class DataSaver
         return (T)Convert.ChangeType(resultValue, typeof(T));
     }
 
-    public static bool deleteData(string dataFileName)
-    {
-        bool success = false;
-
-        //Load Data
-        string tempPath = Path.Combine(Application.persistentDataPath, "data");
-        tempPath = Path.Combine(tempPath, dataFileName + ".txt");
-
-        //Exit if Directory or File does not exist
-        if (!Directory.Exists(Path.GetDirectoryName(tempPath)))
-        {
-            Debug.LogWarning("Directory does not exist");
-            return false;
-        }
-
-        if (!File.Exists(tempPath))
-        {
-            Debug.Log("File does not exist");
-            return false;
-        }
-
-        try
-        {
-            File.Delete(tempPath);
-            Debug.Log("Data deleted from: " + tempPath.Replace("/", "\\"));
-            success = true;
-        }
-        catch (Exception e)
-        {
-            Debug.LogWarning("Failed To Delete Data: " + e.Message);
-        }
-
-        return success;
-    }
 }

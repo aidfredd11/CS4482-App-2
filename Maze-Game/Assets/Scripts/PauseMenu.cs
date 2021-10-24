@@ -16,12 +16,19 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !isMenuActive)
         {
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
             isMenuActive = true;
+
             Pause();
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && isMenuActive)
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false; 
+
             isMenuActive = false;
+
             Resume();
         }
     }
@@ -39,7 +46,6 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenu.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
         ToggleTime(1);
     }
     public void Exit(int sceneID)
@@ -54,6 +60,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = timeScale;
     }
+
     // Change or reload scene
     // 0 = main menu, 1 = game, 2 = leaderboard
     private void LoadScene(int sceneID, int timeScale, bool activeStatus)

@@ -46,6 +46,7 @@ public class Leaderboard : MonoBehaviour
                   .OrderBy(pair => pair.x)
                   .ToList();
 
+        // turn them back in to lists
         times = orderedZip.Select(pair => pair.x).ToList();
         names = orderedZip.Select(pair => pair.y).ToList();
 
@@ -89,10 +90,10 @@ public class Leaderboard : MonoBehaviour
 
             Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
             newTextComp.font = ArialFont;
-            newTextComp.fontSize = 18;
+            newTextComp.fontSize = 22;
 
             // make it a child of content gameobject
-            newText.transform.SetParent(transform);
+            newText.transform.SetParent(transform, false);
 
         }
     }
