@@ -30,31 +30,26 @@ public class Leaderboard : MonoBehaviour
             }
             loadedData.names.Add(name);
             loadedData.times.Add(recordedScore);
-           
+
             // Save it
             DataSaver.saveData(loadedData, "leaderboard");
 
         }
+        
+        // The data is loaded so now do some things with it
 
-        if (loadedData == null)
-        {
-            Debug.Log("Empty leaderboard");
-        }
-        else
-        {
-            // make the 2 lists into a dictionary
-            List<float> times = loadedData.times;
-            List<string> names = loadedData.names;
-            
-            var orderedZip = times.Zip(names, (x, y) => new { x, y })
-                      .OrderBy(pair => pair.x)
-                      .ToList();
+        List<float> times = loadedData.times;
+        List<string> names = loadedData.names;
 
-            times = orderedZip.Select(pair => pair.x).ToList();
-            names = orderedZip.Select(pair => pair.y).ToList();
+        // order the lists ascending
+        var orderedZip = times.Zip(names, (x, y) => new { x, y })
+                  .OrderBy(pair => pair.x)
+                  .ToList();
 
-            GenerateTextObjects(times, names);
-        }
+        times = orderedZip.Select(pair => pair.x).ToList();
+        names = orderedZip.Select(pair => pair.y).ToList();
+
+        GenerateTextObjects(times, names);
 
     }
 
@@ -65,9 +60,14 @@ public class Leaderboard : MonoBehaviour
         {
             // get the current item
             string thisName = names[i];
-            string thisTime = times[i].ToString();
+            float thisTime = times[i];
+
+            TimeSpan time = TimeSpan.FromSeconds(thisTime);
+            string formattedTime = time.ToString(@"mm\:ss\:fff");
+
             // combine to one string
-            string entryString = (i + 1).ToString() + ". " + thisName + "_____" + thisTime;
+            //string entryString = (i + 1).ToString() + ". " + thisName + "_____" + thisTime;
+            string entryString = (i + 1).ToString() + ". " + thisName + " . . . . . . " + formattedTime;
 
             // make a gameobject for the text
             GameObject newText = new GameObject("Entry", typeof(RectTransform));
@@ -85,11 +85,11 @@ public class Leaderboard : MonoBehaviour
             // set up text
             newTextComp.text = entryString;
             newTextComp.alignment = TextAnchor.MiddleCenter;
-            newTextComp.color = Color.black;
+            newTextComp.color = new Color(50f / 255f, 50f / 255f, 50f / 255f);
 
             Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
             newTextComp.font = ArialFont;
-            newTextComp.fontSize = 22;
+            newTextComp.fontSize = 18;
 
             // make it a child of content gameobject
             newText.transform.SetParent(transform);
