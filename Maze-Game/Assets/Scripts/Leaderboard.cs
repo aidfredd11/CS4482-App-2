@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -67,7 +66,6 @@ public class Leaderboard : MonoBehaviour
             string formattedTime = time.ToString(@"mm\:ss\:fff");
 
             // combine to one string
-            //string entryString = (i + 1).ToString() + ". " + thisName + "_____" + thisTime;
             string entryString = (i + 1).ToString() + ". " + thisName + " . . . . . . " + formattedTime;
 
             // make a gameobject for the text
@@ -76,8 +74,6 @@ public class Leaderboard : MonoBehaviour
 
             // Change its size
             RectTransform rectTransform = newText.GetComponent<RectTransform>();
-            float temp = rectTransform.localScale.x;
-            rectTransform.localScale = new Vector3(1 / temp, 1, 1);
             rectTransform.sizeDelta = new Vector2(344, 66);
 
             // add a text componet to new game object

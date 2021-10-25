@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Stopwatch : MonoBehaviour
 {
     public static bool isActive = false;
+
     private float currentTime;
     public Text currentTimeText;
 
@@ -42,7 +43,6 @@ public class Stopwatch : MonoBehaviour
         // Crossed the finish line
         if (lineTag.Equals("Finish"))
         {
-            gameEnd.IsGameEnded = true;
             gameEnd.GameEnd(currentTime);
         }
     }

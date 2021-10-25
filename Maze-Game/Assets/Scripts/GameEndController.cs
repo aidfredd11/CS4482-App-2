@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameEndController : MonoBehaviour
 {
-    private bool isGameEnded = false;
     public Text timeText;
     public MenuController menuController;
     public InputField inputField;
@@ -37,9 +34,11 @@ public class GameEndController : MonoBehaviour
         // enable popup game object and mouse
 
         gameObject.SetActive(true);
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        Time.timeScale = 0;
+
+        Time.timeScale = 0; // stop time
     }
 
     public void OnSubmitButton()
@@ -51,16 +50,11 @@ public class GameEndController : MonoBehaviour
             string name = inputField.text;
             PlayerPrefs.SetString("name", name);
 
+            Time.timeScale = 1; // resume time
+
             // change the scene
             menuController.ChangeScene(2);
         }
             
     }
-
-    public bool IsGameEnded
-    {
-        get { return isGameEnded; }
-        set { isGameEnded = value; }
-    }
-
 }

@@ -3,13 +3,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
-   // public AudioClip footstepsSound;
 
     private Animator animator;
     private Rigidbody playerRb;
 
     public GameObject pauseMenu;
-
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();

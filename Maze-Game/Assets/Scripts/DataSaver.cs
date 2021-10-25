@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
@@ -22,7 +20,6 @@ public class DataSaver
         {
             Directory.CreateDirectory(Path.GetDirectoryName(tempPath));
         }
-        //Debug.Log(path);
 
         try
         {
@@ -42,8 +39,7 @@ public class DataSaver
         string tempPath = Path.Combine(Application.persistentDataPath, "data");
         tempPath = Path.Combine(tempPath, dataFileName + ".txt");
 
-        //Exit if Directory or File does not exist
-        // !Directory.Exists(Path.GetDirectoryName(tempPath))
+        // Make the file if it doesnt exist
         if (!File.Exists(tempPath))
         {
             Debug.LogWarning("Directory does not exist");
